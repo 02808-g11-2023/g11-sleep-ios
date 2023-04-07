@@ -1,0 +1,12 @@
+# IDE Specific files
+.DS_Store
+iOS/build/
+iOS/Build/
+iOS/Index/
+*.pbxuser
+xcuserdata
+profile
+*.moved-aside
+DerivedData
+.idea/
+*.orig
