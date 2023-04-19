@@ -12,6 +12,8 @@
 		5C1B07E729E0670D00C4303B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1B07E629E0670D00C4303B /* Assets.xcassets */; };
 		5C1B07EA29E0670D00C4303B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1B07E929E0670D00C4303B /* Preview Assets.xcassets */; };
 		5C1B07F129E078A000C4303B /* FeedbackSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B07F029E078A000C4303B /* FeedbackSheet.swift */; };
+		5CD6184E29F014CF0047C6C3 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6184D29F014CF0047C6C3 /* HealthKitManager.swift */; };
+		5CD6185029F01EF70047C6C3 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6184F29F01EF70047C6C3 /* ContentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,9 @@
 		5C1B07E629E0670D00C4303B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C1B07E929E0670D00C4303B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5C1B07F029E078A000C4303B /* FeedbackSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSheet.swift; sourceTree = "<group>"; };
+		5CD6184C29F008A10047C6C3 /* g11-sleep-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "g11-sleep-ios.entitlements"; sourceTree = "<group>"; };
+		5CD6184D29F014CF0047C6C3 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		5CD6184F29F01EF70047C6C3 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,11 +58,14 @@
 		5C1B07E129E0670B00C4303B /* g11-sleep-ios */ = {
 			isa = PBXGroup;
 			children = (
+				5CD6184C29F008A10047C6C3 /* g11-sleep-ios.entitlements */,
 				5C1B07E229E0670B00C4303B /* SleepApp.swift */,
 				5C1B07E429E0670B00C4303B /* ContentView.swift */,
+				5CD6184F29F01EF70047C6C3 /* ContentViewModel.swift */,
 				5C1B07F029E078A000C4303B /* FeedbackSheet.swift */,
 				5C1B07E629E0670D00C4303B /* Assets.xcassets */,
 				5C1B07E829E0670D00C4303B /* Preview Content */,
+				5CD6184D29F014CF0047C6C3 /* HealthKitManager.swift */,
 			);
 			path = "g11-sleep-ios";
 			sourceTree = "<group>";
@@ -142,7 +150,9 @@
 			files = (
 				5C1B07E529E0670B00C4303B /* ContentView.swift in Sources */,
 				5C1B07E329E0670B00C4303B /* SleepApp.swift in Sources */,
+				5CD6184E29F014CF0047C6C3 /* HealthKitManager.swift in Sources */,
 				5C1B07F129E078A000C4303B /* FeedbackSheet.swift in Sources */,
+				5CD6185029F01EF70047C6C3 /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,11 +278,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "g11-sleep-ios/g11-sleep-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"g11-sleep-ios/Preview Content\"";
+				DEVELOPMENT_TEAM = C64AJ224N6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "App needs health data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -297,11 +310,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "g11-sleep-ios/g11-sleep-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"g11-sleep-ios/Preview Content\"";
+				DEVELOPMENT_TEAM = C64AJ224N6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "App needs health data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

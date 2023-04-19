@@ -9,10 +9,12 @@ import SwiftUI
 struct ContentView: View {
     @State private var showFeedbackSheet = false
     
+    @EnvironmentObject var vm: ContentViewModel
+    
     var body: some View {
         TabView {
             NavigationView {
-                Text("Content here")
+                Text("Steps today: \(vm.userStepCount)")
                     .navigationTitle("Hi Alexander!")
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
@@ -42,10 +44,12 @@ struct ContentView: View {
         }
         
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(ContentViewModel())
     }
 }

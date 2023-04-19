@@ -8,9 +8,12 @@ import SwiftUI
 
 @main
 struct SleepApp: App {
+    private var vm = ContentViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(vm)
         }
     }
 }
