@@ -17,6 +17,8 @@
 		5CD6184E29F014CF0047C6C3 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6184D29F014CF0047C6C3 /* HealthKitManager.swift */; };
 		5CD6185029F01EF70047C6C3 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6184F29F01EF70047C6C3 /* ContentViewModel.swift */; };
 		5CF0A97329F40DB20038AE13 /* SleepQualityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF0A97229F40DB20038AE13 /* SleepQualityManager.swift */; };
+		5CF0A97529F424200038AE13 /* SleepChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF0A97429F424200038AE13 /* SleepChart.swift */; };
+		5CF0A97729F427520038AE13 /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF0A97629F427520038AE13 /* Stage.swift */; };
 		5CF685C129F068CB008A727B /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF685C029F068CB008A727B /* Timeline.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		5CD6184D29F014CF0047C6C3 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		5CD6184F29F01EF70047C6C3 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		5CF0A97229F40DB20038AE13 /* SleepQualityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepQualityManager.swift; sourceTree = "<group>"; };
+		5CF0A97429F424200038AE13 /* SleepChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepChart.swift; sourceTree = "<group>"; };
+		5CF0A97629F427520038AE13 /* Stage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
 		5CF685C029F068CB008A727B /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +95,7 @@
 			children = (
 				5C1B07E429E0670B00C4303B /* ContentView.swift */,
 				5C1B07F029E078A000C4303B /* FeedbackView.swift */,
+				5CF0A97429F424200038AE13 /* SleepChart.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			children = (
 				5CF685C029F068CB008A727B /* Timeline.swift */,
 				5CC3E49C29F3353400FE27DC /* UserFeedback.swift */,
+				5CF0A97629F427520038AE13 /* Stage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -199,8 +205,10 @@
 				5C1B07E329E0670B00C4303B /* SleepApp.swift in Sources */,
 				5CC3E49B29F3345B00FE27DC /* UserFeedbackManager.swift in Sources */,
 				5CD6184E29F014CF0047C6C3 /* HealthKitManager.swift in Sources */,
+				5CF0A97729F427520038AE13 /* Stage.swift in Sources */,
 				5C1B07F129E078A000C4303B /* FeedbackView.swift in Sources */,
 				5CD6185029F01EF70047C6C3 /* ContentViewModel.swift in Sources */,
+				5CF0A97529F424200038AE13 /* SleepChart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

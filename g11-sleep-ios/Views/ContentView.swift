@@ -24,44 +24,10 @@ struct ContentView: View {
                         Text("Year").tag(Timeline.year)
                     }
                     .pickerStyle(.segmented)
-                    Chart {
-                        BarMark(
-                            x: .value("Name", "Awake"),
-                            y: .value("Value", 10)
-                        )
-                        BarMark(
-                            x: .value("Name", "REM"),
-                            y: .value("Value", 70)
-                        )
-                        BarMark(
-                            x: .value("Name", "Core"),
-                            y: .value("Value", 40)
-                        )
-                        BarMark(
-                            x: .value("Name", "Deep"),
-                            y: .value("Value", 30)
-                        )
-                    }
-                    .frame(height: 275)
-                    Chart {
-                        BarMark(
-                            x: .value("Value", 10),
-                            y: .value("Name", "Awake")
-                        )
-                        BarMark(
-                            x: .value("Value", 70),
-                            y: .value("Name", "REM")
-                        )
-                        BarMark(
-                            x: .value("Value", 40),
-                            y: .value("Name", "Core")
-                        )
-                        BarMark(
-                            x: .value("Value", 30),
-                            y: .value("Name", "Deep")
-                        )
-                    }
-                    .frame(height: 275)
+                    SleepChart(headerTitle: "Chart",
+                               chartXScaleRangeStart: vm.sleepAxisStartDate,
+                               chartXScaleRangeEnd: vm.sleepAxisEndDate,
+                               stages: vm.allStages)
                 }
             }
                 .padding(20)
