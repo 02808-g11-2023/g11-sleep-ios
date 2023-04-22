@@ -37,7 +37,7 @@ class ContentViewModel: ObservableObject {
     }
     
     func readSleepAnalysisBetween(from: Date, to: Date) {
-        self.healthManager.readSleepAnalysis(startDate: from, endDate: to, healthStore: healthStore) { samples in
+        self.healthManager.readSleepAnalysis(startDate: from, endDate: to, healthStore: healthStore) { asleepRem, asleepDeep, asleepCore, awake in
             DispatchQueue.main.async {
                 // do something with samples
             }

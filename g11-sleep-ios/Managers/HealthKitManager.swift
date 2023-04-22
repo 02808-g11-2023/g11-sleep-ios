@@ -4,6 +4,7 @@
 //
 //
 
+import Foundation
 import HealthKit
 
 class HealthKitManager {
@@ -59,18 +60,36 @@ class HealthKitManager {
         healthStore.execute(query)
     }
     
-    func readSleepAnalysis(startDate: Date, endDate: Date, healthStore: HKHealthStore, completion: @escaping ([HKCategorySample]) -> Void) {
+    func readSleepAnalysis(startDate: Date, endDate: Date, healthStore: HKHealthStore, completion: @escaping (_ asleepRem: [HKCategorySample], _ asleepDeep: [HKCategorySample], _ asleepCore: [HKCategorySample], _ awake: [HKCategorySample]) -> Void) {
         guard let sleepAnalysisType = HKCategoryType.categoryType(forIdentifier: .sleepAnalysis) else { return }
         
-        let allAsleepPredicate = HKCategoryValueSleepAnalysis.predicateForSamples(equalTo: HKCategoryValueSleepAnalysis.allAsleepValues)
+        let typesToFetch: Set = [HKCategoryValueSleepAnalysis.asleepREM, HKCategoryValueSleepAnalysis.asleepDeep, HKCategoryValueSleepAnalysis.asleepCore, HKCategoryValueSleepAnalysis.awake]
+        let typesPredicate = HKCategoryValueSleepAnalysis.predicateForSamples(equalTo: typesToFetch)
         let dateRangePredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [dateRangePredicate, allAsleepPredicate])
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [dateRangePredicate, typesPredicate])
 
         let query = HKSampleQuery(sampleType: sleepAnalysisType, predicate: predicate, limit: 10000, sortDescriptors: [sortDescriptor]) { (query, result, error) in
             if let result {
-                let samples = result.compactMap({ $0 as? HKCategorySample})
-                completion(samples)
+                let samples = result.compactMap({ $0 as? HKCategorySample })
+                
+                let asleepRem = samples.filter {
+                    $0.value == HKCategoryValueSleepAnalysis.asleepREM.rawValue
+                }
+                
+                let asleepDeep = samples.filter {
+                    $0.value == HKCategoryValueSleepAnalysis.asleepDeep.rawValue
+                }
+                
+                let asleepCore = samples.filter {
+                    $0.value == HKCategoryValueSleepAnalysis.asleepCore.rawValue
+                }
+                
+                let awake = samples.filter {
+                    $0.value == HKCategoryValueSleepAnalysis.awake.rawValue
+                }
+                
+                completion(asleepRem, asleepDeep, asleepCore, awake)
             }
         }
         
