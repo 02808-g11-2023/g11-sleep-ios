@@ -74,7 +74,7 @@ struct ContentView: View {
                             Image(systemName: "plus")
                         }
                         .sheet(isPresented: $showFeedbackSheet) {
-                            FeedbackSheet()
+                            FeedbackView()
                         }
                     }
                 }

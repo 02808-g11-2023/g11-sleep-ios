@@ -1,12 +1,12 @@
 //
-//  FeedbackSheet.swift
+//  FeedbackView.swift
 //  g11-sleep-ios
 //
 //
 
 import SwiftUI
 
-struct FeedbackSheet: View {
+struct FeedbackView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var date = Date()
@@ -159,8 +159,8 @@ struct FeedbackSheet: View {
     }
 }
 
-struct FeedbackSheet_Previews: PreviewProvider {
+struct FeedbackView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedbackSheet()
+        FeedbackView()
     }
 }
