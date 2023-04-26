@@ -60,10 +60,10 @@ class HealthKitManager {
         healthStore.execute(query)
     }
     
-    func readSleepAnalysis(startDate: Date, endDate: Date, healthStore: HKHealthStore, completion: @escaping (_ asleepRem: [HKCategorySample], _ asleepDeep: [HKCategorySample], _ asleepCore: [HKCategorySample], _ awake: [HKCategorySample]) -> Void) {
+    func readSleepAnalysis(startDate: Date, endDate: Date, healthStore: HKHealthStore, completion: @escaping (_ asleepRem: [HKCategorySample], _ asleepDeep: [HKCategorySample], _ asleepCore: [HKCategorySample], _ awake: [HKCategorySample], _ inBed: [HKCategorySample]) -> Void) {
         guard let sleepAnalysisType = HKCategoryType.categoryType(forIdentifier: .sleepAnalysis) else { return }
         
-        let typesToFetch: Set = [HKCategoryValueSleepAnalysis.asleepREM, HKCategoryValueSleepAnalysis.asleepDeep, HKCategoryValueSleepAnalysis.asleepCore, HKCategoryValueSleepAnalysis.awake]
+        let typesToFetch: Set = [HKCategoryValueSleepAnalysis.asleepREM, HKCategoryValueSleepAnalysis.asleepDeep, HKCategoryValueSleepAnalysis.asleepCore, HKCategoryValueSleepAnalysis.awake, HKCategoryValueSleepAnalysis.inBed]
         let typesPredicate = HKCategoryValueSleepAnalysis.predicateForSamples(equalTo: typesToFetch)
         let dateRangePredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
@@ -89,7 +89,11 @@ class HealthKitManager {
                     $0.value == HKCategoryValueSleepAnalysis.awake.rawValue
                 }
                 
-                completion(asleepRem, asleepDeep, asleepCore, awake)
+                let inBed = samples.filter {
+                    $0.value == HKCategoryValueSleepAnalysis.inBed.rawValue
+                }
+                
+                completion(asleepRem, asleepDeep, asleepCore, awake, inBed)
             }
         }
         

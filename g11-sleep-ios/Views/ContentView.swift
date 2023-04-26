@@ -9,7 +9,6 @@ import Charts
 
 struct ContentView: View {
     @State private var showFeedbackSheet = false
-    @State private var timelineSelection: Timeline = .day
     
     @EnvironmentObject var vm: ContentViewModel
     
@@ -17,17 +16,13 @@ struct ContentView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 20) {
-                    Picker("Timeline", selection: $timelineSelection) {
-                        Text("Day").tag(Timeline.day)
-                        Text("Week").tag(Timeline.week)
-                        Text("Month").tag(Timeline.month)
-                        Text("Year").tag(Timeline.year)
-                    }
-                    .pickerStyle(.segmented)
-                    SleepChart(headerTitle: "Chart",
-                               chartXScaleRangeStart: vm.sleepAxisStartDate,
-                               chartXScaleRangeEnd: vm.sleepAxisEndDate,
-                               stages: vm.allStages)
+                    SleepChart(
+                        chartXScaleRangeStart: vm.sleepAxisStartDate,
+                        chartXScaleRangeEnd: vm.sleepAxisEndDate,
+                        minutesInBed: vm.timeInBed,
+                        timeAsleep: vm.timeAsleep,
+                        stages: vm.allStages
+                    )
                 }
             }
                 .padding(20)
@@ -41,6 +36,20 @@ struct ContentView: View {
                         }
                         .sheet(isPresented: $showFeedbackSheet) {
                             FeedbackView()
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        DatePicker(
+                            "",
+                            selection: $vm.currentDateSelection,
+                            in: ...Date(),
+                            displayedComponents: [.date]
+                        )
+                        .datePickerStyle(.automatic)
+                        .padding(1)
+                        .labelsHidden()
+                        .onChange(of: vm.currentDateSelection) { date in
+                            vm.update()
                         }
                     }
                 }
