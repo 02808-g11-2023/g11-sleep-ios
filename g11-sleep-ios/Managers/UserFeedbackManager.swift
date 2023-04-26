@@ -19,13 +19,14 @@ class UserFeedbackManager {
         dateFormatter.dateStyle = .short
     }
     
-    func getUserFeedbackByDate(date: Date) -> UserFeedback? {
+    func getUserFeedbackByDate(date: Date) -> UserFeedback {
         let formattedDateTime = dateFormatter.string(from: date)
         if let userFeedback = defaults.object(forKey: formattedDateTime) as? Data {
-            return try? decoder.decode(UserFeedback.self, from: userFeedback)
+            let feedback = try? decoder.decode(UserFeedback.self, from: userFeedback)
+            return feedback ?? UserFeedback()
         }
         
-        return nil
+        return UserFeedback()
     }
     
     func setUserFeedbackByDate(date: Date, userFeedback: UserFeedback) {

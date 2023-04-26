@@ -9,6 +9,7 @@ import Charts
 
 struct ContentView: View {
     @State private var showFeedbackSheet = false
+    @State var calendarId: UUID = UUID()
     
     @EnvironmentObject var vm: ContentViewModel
     
@@ -36,6 +37,7 @@ struct ContentView: View {
                         }
                         .sheet(isPresented: $showFeedbackSheet) {
                             FeedbackView()
+                                .environmentObject(FeedbackViewModel(currentSelectedDate: vm.currentDateSelection))
                         }
                     }
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -48,7 +50,9 @@ struct ContentView: View {
                         .datePickerStyle(.automatic)
                         .padding(1)
                         .labelsHidden()
+                        .id(calendarId)
                         .onChange(of: vm.currentDateSelection) { date in
+                            calendarId = UUID()
                             vm.update()
                         }
                     }

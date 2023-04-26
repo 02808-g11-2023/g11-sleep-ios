@@ -12,6 +12,7 @@
 		5C1B07E729E0670D00C4303B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1B07E629E0670D00C4303B /* Assets.xcassets */; };
 		5C1B07EA29E0670D00C4303B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1B07E929E0670D00C4303B /* Preview Assets.xcassets */; };
 		5C1B07F129E078A000C4303B /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B07F029E078A000C4303B /* FeedbackView.swift */; };
+		5CBDAA7A29F946480012BF6B /* FeedbackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBDAA7929F946480012BF6B /* FeedbackViewModel.swift */; };
 		5CC3E49B29F3345B00FE27DC /* UserFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC3E49A29F3345B00FE27DC /* UserFeedbackManager.swift */; };
 		5CC3E49D29F3353400FE27DC /* UserFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC3E49C29F3353400FE27DC /* UserFeedback.swift */; };
 		5CD6184E29F014CF0047C6C3 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6184D29F014CF0047C6C3 /* HealthKitManager.swift */; };
@@ -28,6 +29,7 @@
 		5C1B07E629E0670D00C4303B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C1B07E929E0670D00C4303B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5C1B07F029E078A000C4303B /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
+		5CBDAA7929F946480012BF6B /* FeedbackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewModel.swift; sourceTree = "<group>"; };
 		5CC3E49A29F3345B00FE27DC /* UserFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedbackManager.swift; sourceTree = "<group>"; };
 		5CC3E49C29F3353400FE27DC /* UserFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedback.swift; sourceTree = "<group>"; };
 		5CD6184C29F008A10047C6C3 /* g11-sleep-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "g11-sleep-ios.entitlements"; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				5CD6184F29F01EF70047C6C3 /* ContentViewModel.swift */,
+				5CBDAA7929F946480012BF6B /* FeedbackViewModel.swift */,
 			);
 			path = Viewmodels;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				5C1B07E529E0670B00C4303B /* ContentView.swift in Sources */,
 				5C1B07E329E0670B00C4303B /* SleepApp.swift in Sources */,
 				5CC3E49B29F3345B00FE27DC /* UserFeedbackManager.swift in Sources */,
+				5CBDAA7A29F946480012BF6B /* FeedbackViewModel.swift in Sources */,
 				5CD6184E29F014CF0047C6C3 /* HealthKitManager.swift in Sources */,
 				5CF0A97729F427520038AE13 /* Stage.swift in Sources */,
 				5C1B07F129E078A000C4303B /* FeedbackView.swift in Sources */,

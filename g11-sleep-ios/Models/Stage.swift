@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Stage {
+struct Stage: Equatable {
     var stageName: String
     var stageId: Int
     var startDate: Date

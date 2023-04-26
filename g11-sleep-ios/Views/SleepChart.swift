@@ -29,10 +29,10 @@ struct SleepChart: View {
                         .font(.system(.caption, design: .rounded))
                         .foregroundColor(.gray)
                     
-                    if (minutesInBed > 60) {
+                    if minutesInBed > 60 {
                         let remainder = minutesInBed.truncatingRemainder(dividingBy: 60.0)
                         
-                        if (remainder > 0) {
+                        if remainder > 0 {
                             Text("\(Int(minutesInBed / 60))")
                                 .font(.system(.title, design: .rounded))
                                 .foregroundColor(.primary) +
@@ -58,16 +58,17 @@ struct SleepChart: View {
                     }
                 }
                 .fontWeight(.semibold)
+                .animation(.easeIn, value: minutesInBed)
                 
                 VStack(alignment: .leading) {
                     Text("TIME ASLEEP")
                         .font(.system(.caption, design: .rounded))
                         .foregroundColor(.gray)
                     
-                    if (timeAsleep > 60) {
+                    if timeAsleep > 60 {
                         let remainder = timeAsleep.truncatingRemainder(dividingBy: 60.0)
                         
-                        if (remainder > 0) {
+                        if remainder > 0 {
                             Text("\(Int(timeAsleep / 60))")
                                 .font(.system(.title, design: .rounded))
                                 .foregroundColor(.primary) +
@@ -93,6 +94,7 @@ struct SleepChart: View {
                     }
                 }
                 .fontWeight(.semibold)
+                .animation(.easeInOut, value: timeAsleep)
             }
             
             Chart {
@@ -105,6 +107,34 @@ struct SleepChart: View {
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                         .foregroundStyle(stage.stageColor)
+                        
+                        if let selectedStage, selectedStage == stage {
+                            RuleMark(x: .value("Stage Middle", getStageMiddle(start: selectedStage.startDate, end: selectedStage.endDate)))
+                                .lineStyle(.init(lineWidth: 2, miterLimit: 2, dash: [2], dashPhase: 5))
+                                .offset(x: (plotWidth / getStageMiddle(start: selectedStage.startDate, end: selectedStage.endDate)))
+                                .foregroundStyle(selectedStage.stageColor)
+                                .annotation(position: .top) {
+                                    VStack(alignment: .leading, spacing: 6) {
+                                        Text("Start \(selectedStage.startDate.formatted(date: .abbreviated, time: .shortened))")
+                                            .font(.caption)
+                                            .foregroundColor(.white)
+                                        
+                                        Text("End \(selectedStage.endDate.formatted(date: .abbreviated, time: .shortened))")
+                                            .font(.caption)
+                                            .foregroundColor(.white)
+                                        
+                                        Text("Stage: \(selectedStage.stageName)")
+                                            .font(.body.bold())
+                                            .foregroundColor(.white)
+                                    }
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 4)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                            .fill(.gray.shadow(.drop(radius: 2)))
+                                    }
+                                }
+                        }
                     }
                     .accessibilityLabel("Stage: \(stage.stageName)")
                     .accessibilityValue("Start: \(stage.startDate.formatted(date: .abbreviated, time: .standard)), End: \(stage.endDate.formatted(date: .abbreviated, time: .standard))")
@@ -126,7 +156,11 @@ struct SleepChart: View {
                                         if let stage = stages.first(where: {
                                             date >= $0.startDate && date <= $0.endDate
                                         }) {
-                                            self.selectedStage = stage
+                                            if stage == self.selectedStage {
+                                                self.selectedStage = nil
+                                            } else {
+                                                self.selectedStage = stage
+                                            }
                                             self.plotWidth = proxy.plotAreaSize.width
                                         }
                                     }
@@ -134,7 +168,16 @@ struct SleepChart: View {
                         )
                 }
             }
+            .animation(.easeInOut, value: stages)
         }
+    }
+    
+    private func getStageMiddle(start: Date, end: Date) -> Date {
+        Date(timeInterval: (end.timeIntervalSince1970 - start.timeIntervalSince1970) / 2, since: start)
+    }
+
+    private func getStageMiddle(start: Date, end: Date) -> CGFloat {
+        CGFloat((start.timeIntervalSince1970 + end.timeIntervalSince1970) / 2)
     }
 }
 

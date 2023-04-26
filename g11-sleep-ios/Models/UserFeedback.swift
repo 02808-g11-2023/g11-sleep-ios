@@ -15,7 +15,7 @@ enum FeedbackLevel: Int, Codable {
 }
 
 struct UserFeedback: Codable {
-    var sleepQuality: FeedbackLevel
-    var exerciseQuality: FeedbackLevel
-    var optionalFeedback: String
+    var sleepQuality: FeedbackLevel?
+    var exerciseQuality: FeedbackLevel?
+    var optionalFeedback: String = ""
 }

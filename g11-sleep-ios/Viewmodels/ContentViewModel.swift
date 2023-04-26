@@ -56,7 +56,7 @@ class ContentViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.asleepRem = asleepRem.map {
                     // Color.init(red: 129, green: 207, blue: 250)
-                    Stage(stageName: "REM", stageId: $0.value, startDate: $0.startDate, endDate: $0.endDate, stageColor: .blue)
+                    Stage(stageName: "REM", stageId: $0.value, startDate: $0.startDate, endDate: $0.endDate, stageColor: .cyan)
                 }
                 self.asleepDeep = asleepDeep.map {
                     // .init(red: 53, green: 52, blue: 157)
