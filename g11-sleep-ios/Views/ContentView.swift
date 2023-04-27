@@ -24,6 +24,13 @@ struct ContentView: View {
                         timeAsleep: vm.timeAsleep,
                         stages: vm.allStages
                     )
+                    
+                    HeartRateChart(
+                        data: vm.heartRates,
+                        minBPM: vm.minBPM,
+                        maxBPM: vm.maxBPM,
+                        averageHeartRate: vm.averageHeartRate
+                    )
                 }
             }
                 .padding(20)

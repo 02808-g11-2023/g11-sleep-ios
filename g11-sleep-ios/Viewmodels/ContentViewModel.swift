@@ -10,7 +10,11 @@ import SwiftUI
 
 class ContentViewModel: ObservableObject {
     
-    @Published var heartRates: [Double] = []
+    @Published var heartRates: [HeartRate] = []
+    
+    @Published var minBPM: Double = 0
+    @Published var maxBPM: Double = 0
+    @Published var averageHeartRate: Double = 0
     
     @Published var asleepRem: [Stage] = []
     @Published var asleepDeep: [Stage] = []
@@ -96,10 +100,61 @@ class ContentViewModel: ObservableObject {
     func readHeartRateBetween(from: Date, to: Date) {
         self.healthManager.readHeartRate(startDate: from, endDate: to, healthStore: healthStore) { samples in
             DispatchQueue.main.async {
-                let values = samples.compactMap { $0.quantity.doubleValue(for: HKUnit.init(from: "count/min")) }
-                self.heartRates = values
+                let allMappedSamples = samples.map {
+                    HeartRate(id: $0.uuid.uuidString, minHeartRate: $0.quantity.doubleValue(for: HKUnit.init(from: "count/min")), maxHeartRate: $0.quantity.doubleValue(for: HKUnit.init(from: "count/min")), startDate: $0.startDate, endDate: $0.endDate)
+                }
+                
+                let groupedByHour = self.groupedDataByHour(data: allMappedSamples)
+                var entries: [HeartRate] = []
+                groupedByHour.forEach { group in
+                    let min = group.value.min {
+                        $0.minHeartRate < $1.minHeartRate
+                    }?.minHeartRate ?? 0.0
+                    
+                    let max = group.value.max {
+                        $0.maxHeartRate < $1.maxHeartRate
+                    }?.maxHeartRate ?? 0.0
+                    
+                    let sortedGroup = group.value.sorted {
+                        $0.endDate < $1.endDate
+                    }
+                        
+                    entries.append(
+                        HeartRate(
+                            id: UUID().uuidString,
+                            minHeartRate: min,
+                            maxHeartRate: max,
+                            startDate: sortedGroup.first?.startDate ?? Date(),
+                            endDate: sortedGroup.last?.endDate ?? Date()
+                        )
+                    )
+                }
+                
+                self.heartRates = entries
+                
+                self.minBPM = self.heartRates.min {
+                    $0.minHeartRate < $1.minHeartRate
+                }?.minHeartRate ?? 0.0
+                
+                self.maxBPM = self.heartRates.max {
+                    $0.maxHeartRate < $1.maxHeartRate
+                }?.maxHeartRate ?? 0.0
+                
+                self.averageHeartRate = (allMappedSamples.count > 0 ? (allMappedSamples.reduce(0.0) { $0 + $1.minHeartRate }) / Double(allMappedSamples.count) : 0.0)
             }
         }
+    }
+    
+    func groupedDataByHour(data: [HeartRate]) -> [Date: [HeartRate]] {
+        let initial: [Date: [HeartRate]] = [:]
+        let groupedByDateComponents = data.reduce(into: initial) { acc, cur in
+            let components = Calendar.current.dateComponents([.hour], from: cur.startDate)
+            let date = Calendar.current.date(from: components)!
+            let existing = acc[date] ?? []
+            acc[date] = existing + [cur]
+        }
+        
+        return groupedByDateComponents
     }
     
 }

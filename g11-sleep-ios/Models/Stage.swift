@@ -2,7 +2,6 @@
 //  Stage.swift
 //  g11-sleep-ios
 //
-//  Created by Alexander Johansson on 22/04/2023.
 //
 
 import Foundation

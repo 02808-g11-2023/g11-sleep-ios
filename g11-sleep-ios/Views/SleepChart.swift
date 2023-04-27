@@ -2,7 +2,6 @@
 //  SleepGraphView.swift
 //  g11-sleep-ios
 //
-//  Created by Alexander Johansson on 22/04/2023.
 //
 
 import Foundation
@@ -55,10 +54,11 @@ struct SleepChart: View {
                             .font(.system(.title, design: .rounded))
                             .foregroundColor(.primary) +
                         Text(" min")
+                            .foregroundColor(.gray)
                     }
                 }
                 .fontWeight(.semibold)
-                .animation(.easeIn, value: minutesInBed)
+                .animation(.easeInOut, value: minutesInBed)
                 
                 VStack(alignment: .leading) {
                     Text("TIME ASLEEP")
@@ -109,19 +109,19 @@ struct SleepChart: View {
                         .foregroundStyle(stage.stageColor)
                         
                         if let selectedStage, selectedStage == stage {
-                            RuleMark(x: .value("Stage Middle", getStageMiddle(start: selectedStage.startDate, end: selectedStage.endDate)))
+                            RuleMark(x: .value("Stage Middle", getMiddle(start: selectedStage.startDate, end: selectedStage.endDate)))
                                 .lineStyle(.init(lineWidth: 2, miterLimit: 2, dash: [2], dashPhase: 5))
-                                .offset(x: (plotWidth / getStageMiddle(start: selectedStage.startDate, end: selectedStage.endDate)))
+                                .offset(x: (plotWidth / getMiddle(start: selectedStage.startDate, end: selectedStage.endDate)))
                                 .foregroundStyle(selectedStage.stageColor)
                                 .annotation(position: .top) {
                                     VStack(alignment: .leading, spacing: 6) {
                                         Text("Start \(selectedStage.startDate.formatted(date: .abbreviated, time: .shortened))")
                                             .font(.caption)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.gray)
                                         
                                         Text("End \(selectedStage.endDate.formatted(date: .abbreviated, time: .shortened))")
                                             .font(.caption)
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.gray)
                                         
                                         Text("Stage: \(selectedStage.stageName)")
                                             .font(.body.bold())
@@ -131,7 +131,7 @@ struct SleepChart: View {
                                     .padding(.vertical, 4)
                                     .background {
                                         RoundedRectangle(cornerRadius: 6, style: .continuous)
-                                            .fill(.gray.shadow(.drop(radius: 2)))
+                                            .fill(Color(.systemGray6).shadow(.drop(radius: 2)))
                                     }
                                 }
                         }
@@ -162,6 +162,8 @@ struct SleepChart: View {
                                                 self.selectedStage = stage
                                             }
                                             self.plotWidth = proxy.plotAreaSize.width
+                                        } else {
+                                            self.selectedStage = nil
                                         }
                                     }
                                 }
@@ -172,11 +174,11 @@ struct SleepChart: View {
         }
     }
     
-    private func getStageMiddle(start: Date, end: Date) -> Date {
+    private func getMiddle(start: Date, end: Date) -> Date {
         Date(timeInterval: (end.timeIntervalSince1970 - start.timeIntervalSince1970) / 2, since: start)
     }
 
-    private func getStageMiddle(start: Date, end: Date) -> CGFloat {
+    private func getMiddle(start: Date, end: Date) -> CGFloat {
         CGFloat((start.timeIntervalSince1970 + end.timeIntervalSince1970) / 2)
     }
 }
