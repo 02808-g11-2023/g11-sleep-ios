@@ -177,7 +177,7 @@ struct FeedbackView: View {
                 
                 Section(header: Text("Optional input")) {
                     TextField("How did you feel?", text: $vm.textInput)
-                        .frame(height: 275, alignment: .top)
+                        .frame(height: 250, alignment: .top)
                 }
             }
                 .toolbar {

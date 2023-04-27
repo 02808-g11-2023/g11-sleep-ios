@@ -9,6 +9,7 @@ import Charts
 
 struct ContentView: View {
     @State private var showFeedbackSheet = false
+    @State private var showInsightsSheet = false
     @State var calendarId: UUID = UUID()
     
     @EnvironmentObject var vm: ContentViewModel
@@ -17,13 +18,29 @@ struct ContentView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 20) {
-                    SleepChart(
-                        chartXScaleRangeStart: vm.sleepAxisStartDate,
-                        chartXScaleRangeEnd: vm.sleepAxisEndDate,
-                        minutesInBed: vm.timeInBed,
-                        timeAsleep: vm.timeAsleep,
-                        stages: vm.allStages
-                    )
+                    ZStack {
+                        Button(action: {
+                            showInsightsSheet.toggle()
+                        }) {
+                            Text("Insights")
+                                .foregroundColor(.accentColor)
+                            Image(systemName: "chevron.forward")
+                                .foregroundColor(.accentColor)
+                        }
+                        .sheet(isPresented: $showInsightsSheet) {
+                            InsightsView()
+                                .environmentObject(vm)
+                        }
+                        .offset(x: 130, y: -160)
+                        
+                        SleepChart(
+                            chartXScaleRangeStart: vm.sleepAxisStartDate,
+                            chartXScaleRangeEnd: vm.sleepAxisEndDate,
+                            minutesInBed: vm.timeInBed,
+                            timeAsleep: vm.timeAsleep,
+                            stages: vm.allStages
+                        )
+                    }
                     
                     HeartRateChart(
                         data: vm.heartRates,
