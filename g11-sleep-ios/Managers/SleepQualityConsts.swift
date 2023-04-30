@@ -1,31 +1,29 @@
 //
-//  SleepQualityManager.swift
+//  SleepQualityConsts.swift
 //  g11-sleep-ios
 //
 //  Created by Alexander Johansson on 22/04/2023.
 //
 
-import Foundation
-
-struct Consts {
+struct SleepQualityConsts {
     // REM threshold
-    var remGoodSleepMin: Double = 0.21
-    var remGoodSleepMax: Double = 0.30
+    static let remGoodSleepMin: Double = 0.21
+    static let remGoodSleepMax: Double = 0.30
     
     // If above 40%, indicates bad sleep
-    var remBadSleep: Double = 0.40
+    static let remBadSleep: Double = 0.40
     
     // Awakenings per night 0-1, 4+ bad
-    var awakeningsGoodMin: Int = 1
-    var awakeningBadMax: Int = 4
+    static let awakeningsGoodMin: Int = 1
+    static let awakeningBadMax: Int = 4
     
     // Wake after sleep onset (WASO)
-    var sleepWASOMax: Int = 51
-    var sleepWASOMin: Int = 20
+    static let sleepWASOMax: Int = 51
+    static let sleepWASOMin: Int = 20
     
     // Sleep latency (<15 mins good, >45 mins bad)
-    var sleepGoodLatency: Int = 15
-    var sleepBadLatency: Int = 45
+    static let sleepGoodLatency: Int = 15
+    static let sleepBadLatency: Int = 45
 }
 
 // Four different types of metrics:
@@ -35,8 +33,3 @@ struct Consts {
 // - Latency
 // Bad if you have three or more outside of thresholds, or inside "bad" thresholds
 // Good if you three or more that are within "good" thresholds
-class SleepQualityManager {
-    
-    
-    
-}

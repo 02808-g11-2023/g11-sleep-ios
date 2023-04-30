@@ -25,6 +25,13 @@ class ContentViewModel: ObservableObject {
     
     @Published var timeInBed: Double = 0
     @Published var timeAsleep: Double = 0
+    @Published var timeAsleepREM: Double = 0
+    @Published var timeAwake: Double = 0
+    
+    @Published var sleepLatency: Int = 0
+    @Published var remLevel: Int = 0
+    
+    @Published var awakenings: Int = 0
     
     @Published var sleepAxisStartDate: Date = Date()
     @Published var sleepAxisEndDate: Date = Date()
@@ -83,6 +90,25 @@ class ContentViewModel: ObservableObject {
                 self.timeInBed = (self.inBed.reduce(0.0) {
                     $0 + $1.endDate.timeIntervalSince($1.startDate)
                 }) / 60
+                
+                self.timeAwake = (self.awake.reduce(0.0) {
+                    $0 + $1.endDate.timeIntervalSince($1.startDate)
+                }) / 60
+                
+                self.awakenings = self.awake.map {
+                    $0.endDate.timeIntervalSince($0.startDate)
+                }.filter {
+                    $0 > 300 // 5 minutes
+                }.count
+                
+                self.sleepLatency = Int((self.inBed.last != nil ? self.asleepCore.last?.startDate.timeIntervalSince(self.inBed.last!.startDate) ?? 0.0 : 0.0) / 60)
+                
+                self.timeAsleepREM = (self.asleepRem.reduce(0.0) {
+                    $0 + $1.endDate.timeIntervalSince($1.startDate)
+                }) / 60
+                
+                let tempRemLevel = self.timeAsleepREM / self.timeAsleep * 100
+                self.remLevel = Int(tempRemLevel.isNaN ? 0.0 : tempRemLevel)
                 
                 self.sleepAxisStartDate = Calendar.current.date(byAdding: .minute, value: -15, to: mergedList.first?.startDate ?? Date()) ?? Date()
                 mergedList = mergedList.sorted {
