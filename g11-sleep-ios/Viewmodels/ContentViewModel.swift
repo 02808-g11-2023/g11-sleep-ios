@@ -33,6 +33,8 @@ class ContentViewModel: ObservableObject {
     
     @Published var awakenings: Int = 0
     
+    @Published var exerciseLevel: Int = 0
+    
     @Published var sleepAxisStartDate: Date = Date()
     @Published var sleepAxisEndDate: Date = Date()
     
@@ -98,7 +100,8 @@ class ContentViewModel: ObservableObject {
                 self.awakenings = self.awake.map {
                     $0.endDate.timeIntervalSince($0.startDate)
                 }.filter {
-                    $0 > SleepQualityConsts.awakeningsTimeOffset
+                    let offset: Int = SleepQualityConsts.awakeningsTimeOffset
+                    return Int($0) > offset
                 }.count
                 
                 self.sleepLatency = Int((self.inBed.last != nil ? self.asleepCore.last?.startDate.timeIntervalSince(self.inBed.last!.startDate) ?? 0.0 : 0.0) / 60)
@@ -163,6 +166,12 @@ class ContentViewModel: ObservableObject {
                 }?.maxHeartRate ?? 0.0
                 
                 self.averageHeartRate = (allMappedSamples.count > 0 ? (allMappedSamples.reduce(0.0) { $0 + $1.minHeartRate }) / Double(allMappedSamples.count) : 0.0)
+                
+                let heartRateEventsOverThreshold = allMappedSamples.filter {
+                    Int($0.minHeartRate) >= ExerciseQualityConsts.heartRateThresholdMin
+                }.count
+                
+                self.exerciseLevel = ExerciseQualityConsts.getExerciseLevel(heartRateEventsOverThreshold: heartRateEventsOverThreshold)
             }
         }
     }
