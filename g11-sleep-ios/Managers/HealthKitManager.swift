@@ -30,7 +30,7 @@ class HealthKitManager {
         
         let query = HKSampleQuery(sampleType: heartRateType, predicate: predicate, limit: 10000, sortDescriptors: [sortDescriptor]) { (query, result, error) in
             if let result {
-                let samples = result.compactMap({ $0 as? HKQuantitySample})
+                let samples = result.compactMap({ $0 as? HKQuantitySample })
                 completion(samples)
             }
         }

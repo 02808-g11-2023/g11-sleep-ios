@@ -98,7 +98,7 @@ class ContentViewModel: ObservableObject {
                 self.awakenings = self.awake.map {
                     $0.endDate.timeIntervalSince($0.startDate)
                 }.filter {
-                    $0 > 300 // 5 minutes
+                    $0 > SleepQualityConsts.awakeningsTimeOffset
                 }.count
                 
                 self.sleepLatency = Int((self.inBed.last != nil ? self.asleepCore.last?.startDate.timeIntervalSince(self.inBed.last!.startDate) ?? 0.0 : 0.0) / 60)

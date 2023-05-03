@@ -37,13 +37,17 @@ struct InsightsView: View {
                     HStack {
                         Text("REM Level: ") + Text("\(vm.remLevel)%").foregroundColor(.gray)
                         Spacer()
-                        // TODO: logic for checkmark / x
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(.green)
-                        //Image(systemName: "x.circle")
-                        //    .foregroundColor(.red)
-                        //Image(systemName: "minus.circle")
-                        //    .foregroundColor(.red)
+                        let remPercentage = (Double(vm.remLevel) / 100.0)
+                        if remPercentage >= SleepQualityConsts.remGoodSleepMin && remPercentage <= SleepQualityConsts.remGoodSleepMax {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(.green)
+                        } else if remPercentage > SleepQualityConsts.remBadSleep {
+                            Image(systemName: "x.circle")
+                                .foregroundColor(.red)
+                        } else {
+                            Image(systemName: "minus.circle")
+                                .foregroundColor(.orange)
+                        }
                     }
                 }
                 Section(
@@ -52,8 +56,16 @@ struct InsightsView: View {
                     HStack {
                         Text("Awakenings: ") + Text("\(vm.awakenings)").foregroundColor(.gray)
                         Spacer()
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(.green)
+                        if vm.awakenings <= SleepQualityConsts.awakeningsGoodMin {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(.green)
+                        } else if vm.awakenings > SleepQualityConsts.awakeningsGoodMin && vm.awakenings <= SleepQualityConsts.awakeningsBadMax {
+                            Image(systemName: "minus.circle")
+                                .foregroundColor(.orange)
+                        } else {
+                            Image(systemName: "x.circle")
+                                .foregroundColor(.red)
+                        }
                     }
                 }
                 Section(
@@ -62,8 +74,16 @@ struct InsightsView: View {
                     HStack {
                         Text("Wake After Sleep Onset: ") + Text("\(Int(vm.timeAwake)) min").foregroundColor(.gray)
                         Spacer()
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(.green)
+                        if Int(vm.timeAwake) < SleepQualityConsts.sleepWASOMin {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(.green)
+                        } else if Int(vm.timeAwake) >= SleepQualityConsts.sleepWASOMin && Int(vm.timeAwake) <= SleepQualityConsts.sleepWASOMax {
+                            Image(systemName: "minus.circle")
+                                .foregroundColor(.orange)
+                        } else {
+                            Image(systemName: "x.circle")
+                                .foregroundColor(.red)
+                        }
                     }
                 }
                 Section(
@@ -80,7 +100,7 @@ struct InsightsView: View {
                                 .foregroundColor(.red)
                         } else {
                             Image(systemName: "minus.circle")
-                                .foregroundColor(.red)
+                                .foregroundColor(.orange)
                         }
                     }
                 }

@@ -2,7 +2,6 @@
 //  SleepQualityConsts.swift
 //  g11-sleep-ios
 //
-//  Created by Alexander Johansson on 22/04/2023.
 //
 
 struct SleepQualityConsts {
@@ -15,7 +14,10 @@ struct SleepQualityConsts {
     
     // Awakenings per night 0-1, 4+ bad
     static let awakeningsGoodMin: Int = 1
-    static let awakeningBadMax: Int = 4
+    static let awakeningsBadMax: Int = 4
+    
+    // If awakenings longer than x seconds (5 minutes), count one awakening. If awakenings are shorter than 5 mins, disregard
+    static let awakeningsTimeOffset: Int = 300 // 5 minutes
     
     // Wake after sleep onset (WASO)
     static let sleepWASOMax: Int = 51
